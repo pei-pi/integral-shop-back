@@ -3,9 +3,18 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const app = express();
+const cors = require('cors')
+const path = require('path')
 
+mongoose.set('useFindAndModify',false)
+
+app.use(cors())
+app.use(express.static(path.join(__dirname,"./static")))
 //引入user.js
 const users = require("./routers/api/users")
+const upload = require("./routers/api/upload")
+const goods = require("./routers/api/goods")
+const manage = require("./routers/api/manage")
 
 //使用body-parser中间件
 app.use(bodyParser.urlencoded({extended:false}));
@@ -26,6 +35,9 @@ mongoose.connect('mongodb://test:123456@localhost:27017/test',{ useNewUrlParser:
 // })
 
 app.use("/api/users",users)
+app.use("/api/upload",upload)
+app.use("/api/goods",goods)
+app.use("/api/manage",manage)
 
 const port = process.env.PORT || 5000;
 

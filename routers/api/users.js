@@ -1,4 +1,4 @@
-// 登录&注册
+// 登录&注册&当前用户数据
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
@@ -7,9 +7,10 @@ const User = require("../../models/User");
 const passport = require("passport");
 
 //GET api/users/test
-// router.get("/text", (req, res) => {
-//     res.json({ msg: "login works" })
-// })
+router.get("/test", (req,res) => {
+    res.json({ msg: "login works" })
+    console.log("idhwaai")
+})
 
 //注册  POST api/users/register
 router.post("/register", (req, res) => {
@@ -24,7 +25,8 @@ router.post("/register", (req, res) => {
                     email: req.body.email,
                     name: req.body.name,   
                     password: req.body.password,
-                    integral: req.body.integral
+                    integral: req.body.integral,
+                    role:req.body.role,
                 })
                 //密码加密
                 bcrypt.genSalt(10, function(err, salt) {
@@ -80,7 +82,8 @@ router.get("/current",passport.authenticate('jwt',{session:false}),(req,res)=>{
         id:req.user.id,
         name:req.user.name,
         email:req.user.email,
-        integral:req.user.integral
+        integral:req.user.integral,
+        role:req.user.role
     });
 })
 

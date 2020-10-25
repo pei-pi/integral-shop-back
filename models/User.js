@@ -16,7 +16,7 @@ const UserSchema = new Schema({
     },
     integral:{//积分
         type:String,
-        default:500
+        default:0
     },
     role:{//权限
         type:String,
